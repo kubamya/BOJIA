@@ -40,6 +40,7 @@
 </template>
 <script>
 import BMap from 'BMap'
+import global_ from '@/global/global.vue';
 import $ from 'jquery'
 export default {
     data(){
@@ -48,14 +49,13 @@ export default {
         }
     },
     mounted(){
-        // this.city()    //触发获取城市方法
+        // this.city();    //触发获取城市方法
         this.getWeather();//调用国家气象局接口获取天气数据
     },
     methods:{
         city(){    //定义获取城市方法
-            const geolocation = new BMap.Geolocation();
+            var geolocation = new BMap.Geolocation();
             var _this = this
-            debugger;
             geolocation.getCurrentPosition(function getinfo(position){
                 let city = position.address.city;             //获取城市信息
                 let province = position.address.province;    //获取省份信息
@@ -65,21 +65,11 @@ export default {
             }, {provider: 'baidu'});		
         },
         getWeather(){
-            var params = new URLSearchParams();
-            // params.append('loginid', this.loginRuleForm.username);
-            // params.append('password', this.loginRuleForm.password);
-            this.$axios({method:'get',url: 'http://172.18.48.97:8082/proxy/getWeather', data: params})
-                .then(response =>{
-                    alert(response.data.data);
-                });
-            // $.ajax({
-            //     url: 'http://172.18.48.97:8082/proxy/getWeather',
-            //     type: 'GET', 
-            //     dataType: 'JSONP',
-            //     success: function (res) {
-            //         console.log(res)
-            //     }
-            // });
+            this.$axios.get('/101220101').then((response)=>{
+                console.log('weather-------------',response);
+            }).catch((response)=>{
+                console.log(response);
+            })
         }
     }
 }

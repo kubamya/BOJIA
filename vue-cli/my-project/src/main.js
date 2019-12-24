@@ -9,9 +9,16 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueResource from 'vue-resource'
 
+
+import apiConfig from '../config/api.config'
+
 import axios from 'axios';
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.$axios = axios;
+axios.defaults.baseURL = '/api';
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+
 
 // Vue.prototype.HOST='/weatherApi'
 

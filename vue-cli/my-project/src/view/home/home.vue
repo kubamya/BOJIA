@@ -61,7 +61,7 @@ export default {
 .home-head-container{
     background-color: #409EFF;
     width: 100%;
-    height: 180px;
+    height: 200px;
 }
 .home-head-bar{
     width: 100%;
