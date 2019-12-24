@@ -24,6 +24,11 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+  /* ******百度地图******* */
+  externals:{
+    "BMap":"BMap"
+  },
+  /* ******百度地图******* */
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',

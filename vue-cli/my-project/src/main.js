@@ -12,6 +12,9 @@ import VueResource from 'vue-resource'
 import axios from 'axios';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.$axios = axios;
+
+// Vue.prototype.HOST='/weatherApi'
+
 Vue.use(VueResource);
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
 Vue.use(ElementUI);

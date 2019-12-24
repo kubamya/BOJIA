@@ -123,11 +123,12 @@ export default {
     position: fixed;
     bottom: 0;
     box-sizing: border-box;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #eee;
 }
 .nav-container{
     width: 100%;
     height: 100%;
+    background-color: #f1f1f1;
 }
 .nav-item{
     width: 25%;

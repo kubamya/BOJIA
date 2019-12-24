@@ -3,7 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
+// const proxyList = require(proxy.js);
 module.exports = {
   dev: {
 
@@ -16,6 +16,16 @@ module.exports = {
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
+    // proxy:proxyList,
+    // proxyTable: { 
+    //   '/weatherApi': {  //使用"/api"来代替"http://f.apiplus.c" 
+    //     target: 'http://t.weather.sojson.com/api/weather/city/101071201', //源地址 
+    //     changeOrigin: true, //改变源 
+    //     pathRewrite: { 
+    //       '^/weatherApi': 'http://t.weather.sojson.com/api/weather/city/101071201' //路径重写 
+    //       } 
+    //   } 
+    // },
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
