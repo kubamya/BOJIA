@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.login.mapper.LoginMapper">
+    <select id="login" parameterType="java.util.Map" resultType="java.util.Map">
+		select c_id as id, c_username as  username, c_comid as comid, c_deptid as deptid from t_sims_user
+        where c_loginid = #{loginid, jdbcType=VARCHAR} and c_password = #{password, jdbcType=VARCHAR}
+	</select>
+
+</mapper>

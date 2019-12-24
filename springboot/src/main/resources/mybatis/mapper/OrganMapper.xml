@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.organ.mapper.OrganMapper">
+    <select id="getAllComs" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+            c_id AS id,
+            c_name AS name,
+            n_xssx AS xssx
+        FROM
+            t_sims_com
+        WHERE
+            n_sfyx = #{sfyx, jdbcType=INTEGER}
+        ORDER BY
+            n_xssx ASC
+	</select>
+
+    <select id="getDeptByComID" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+            c_id AS id,
+            c_name AS name,
+            n_xssx AS xssx,
+            c_pid AS pid,
+            c_comid AS comid
+        FROM
+            t_sims_dept
+        WHERE
+            c_comid = #{comId, jdbcType=VARCHAR}
+            AND n_jb = #{jb, jdbcType=INTEGER}
+        ORDER BY
+            n_xssx ASC
+    </select>
+
+    <select id="getComById" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+            c_id AS id,
+            c_name AS name,
+            n_xssx AS xssx,
+            n_sfyx AS sfyx
+        FROM
+            t_sims_com
+        WHERE
+            c_id = #{comId, jdbcType=VARCHAR}
+	</select>
+
+    <select id="getUsersByComid" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+            c_id AS userid,
+            c_loginid AS loginId,
+            c_username AS username,
+            c_comid AS comid,
+            c_deptid AS deptid,
+            c_email AS email,
+            c_tel AS tel,
+            n_xssx AS xssx,
+            n_sfyx AS sfyx
+        FROM
+            t_sims_user
+        WHERE
+            c_comid = #{comId, jdbcType=VARCHAR}
+        ORDER BY
+            n_xssx ASC
+	</select>
+</mapper>
