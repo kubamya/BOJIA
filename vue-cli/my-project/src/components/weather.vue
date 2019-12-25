@@ -39,7 +39,7 @@
     </div>
 </template>
 <script>
-import BMap from 'BMap'
+// import BMap from 'BMap'
 import global_ from '@/global/global.vue';
 import $ from 'jquery'
 export default {
@@ -53,20 +53,20 @@ export default {
         this.getWeather();//调用国家气象局接口获取天气数据
     },
     methods:{
-        city(){    //定义获取城市方法
-            var geolocation = new BMap.Geolocation();
-            var _this = this
-            geolocation.getCurrentPosition(function getinfo(position){
-                let city = position.address.city;             //获取城市信息
-                let province = position.address.province;    //获取省份信息
-                _this.LocationCity = city
-            }, function(e) {
-                _this.LocationCity = "定位失败"
-            }, {provider: 'baidu'});		
-        },
+        // city(){    //定义获取城市方法
+        //     var geolocation = new BMap.Geolocation();
+        //     var _this = this
+        //     geolocation.getCurrentPosition(function getinfo(position){
+        //         let city = position.address.city;             //获取城市信息
+        //         let province = position.address.province;    //获取省份信息
+        //         _this.LocationCity = city
+        //     }, function(e) {
+        //         _this.LocationCity = "定位失败"
+        //     }, {provider: 'baidu'});		
+        // },
         getWeather(){
             this.$axios.get('/101220101').then((response)=>{
-                console.log('weather-------------',response);
+                alert(response);
             }).catch((response)=>{
                 console.log(response);
             })

@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="login-form-row">
-                <el-button type="primary" style="width:100%;height:100%;border-radius:20px;">登录</el-button>
+                <el-button type="primary" style="width:100%;height:100%;border-radius:20px;" @click="login()">登录</el-button>
             </div>
         </div>
         <div class="login-footer">
@@ -29,6 +29,21 @@
         </div>
     </div>
 </template>
+<script>
+export default {
+    data(){
+        return {
+
+        }
+    },
+    methods:{
+        login(){
+            this.$router.push({path: '/home'});
+        }
+    }
+}
+</script>
+
 <style scoped>
 .login-container{
     width: 100%;

@@ -16,18 +16,6 @@
                 </div>
             </div>
             <div class="home-weather">
-                <!-- <div class="home-weather-day">
-                    <div class="home-weather-day-title">
-                        <a>今日天气</a>
-                    </div>
-                    <div class="home-weather-day-info"></div>
-                </div>
-                <div class="home-weather-day">
-                    <div class="home-weather-day-title">
-                        <a>今日天气</a>
-                    </div>
-
-                </div> -->
                 <weatherCom></weatherCom>
             </div>
         </div>

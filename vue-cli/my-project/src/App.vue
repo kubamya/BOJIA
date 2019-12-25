@@ -12,7 +12,7 @@ export default {
     }
   },
   mounted(){
-    this.$router.push({path: '/main'});
+    this.$router.push({path: '/login'});
   }
   
 }
