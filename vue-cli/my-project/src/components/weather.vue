@@ -6,15 +6,15 @@
             </div>
             <div class="home-weather-day-info">
                 <div class="home-weather-day-info-row" style="width:40%;">
-                    <p class="weather-icon"><i class="el-icon-sunny"></i></p>
-                    <p class="weather-tempurate">28℃</p>
+                    <p class="weather-icon"><i :class="weahterToday.icon"></i></p>
+                    <p class="weather-tempurate">{{weahterToday.type}}</p>
                 </div>
                 <div class="home-weather-day-info-row" style="width:60%;text-align:left;">
-                    <p class="weather-text">{{LocationCity}}</p>
+                    <!-- <p class="weather-text">{{LocationCity}}</p> -->
                     <p class="weather-text">今日天气指数</p>
-                    <p class="weather-text">28~32℃</p>
-                    <p class="weather-text">微风</p>
-                    <p class="weather-text">晴</p>
+                    <p class="weather-text">{{weahterToday.low}}~{{weahterToday.high}}</p>
+                    <p class="weather-text">{{weahterToday.fx}} - {{weahterToday.fl}}</p>
+                    <p class="weather-text" style="font-size:10px;">{{weahterToday.notice}}</p>
                 </div>
             </div>
         </div>
@@ -24,15 +24,15 @@
             </div>
             <div class="home-weather-day-info">
                 <div class="home-weather-day-info-row" style="width:40%;">
-                    <p class="weather-icon"><i class="el-icon-sunny"></i></p>
-                    <p class="weather-tempurate">28℃</p>
+                    <p class="weather-icon"><i :class="weahterTomorrow.icon"></i></p>
+                    <p class="weather-tempurate">{{weahterTomorrow.type}}</p>
                 </div>
                 <div class="home-weather-day-info-row" style="width:60%;text-align:left;">
-                    <p class="weather-text">{{LocationCity}}</p>
-                    <p class="weather-text">今日天气指数</p>
-                    <p class="weather-text">28~32℃</p>
-                    <p class="weather-text">微风</p>
-                    <p class="weather-text">晴</p>
+                    <!-- <p class="weather-text">{{LocationCity}}</p> -->
+                    <p class="weather-text">明日天气指数</p>
+                    <p class="weather-text">{{weahterTomorrow.low}}~{{weahterTomorrow.high}}</p>
+                    <p class="weather-text">{{weahterTomorrow.fx}} - {{weahterTomorrow.fl}}</p>
+                    <p class="weather-text" style="font-size:10px;">{{weahterTomorrow.notice}}</p>
                 </div>
             </div>
         </div>
@@ -46,6 +46,25 @@ export default {
     data(){
         return{
             LocationCity:"正在定位",
+            //天气
+            weahterToday:{
+                type:'',//晴、阴......
+                low:'',//低温
+                high:'',//高温
+                fx:'',//风向
+                fl:'',//风力
+                notice:'',
+                icon:''
+            },
+            weahterTomorrow:{
+                type:'',//晴、阴......
+                low:'',//低温
+                high:'',//高温
+                fx:'',//风
+                fl:'',//风力
+                notice:'',
+                icon:''
+            }
         }
     },
     mounted(){
@@ -64,9 +83,36 @@ export default {
         //         _this.LocationCity = "定位失败"
         //     }, {provider: 'baidu'});		
         // },
+
+        //匹配天气图标
+        getWeatherIcon(weatherStr){
+            switch(weatherStr){
+                case '小雨': return 'el-icon-light-rain';
+                case '多云': return 'el-icon-cloudy';
+                case '晴': return 'el-icon-sunny';
+            }
+        },
+
+        //接口调用获取天气信息
         getWeather(){
-            this.$axios.get('/101220101').then((response)=>{
-                alert(response);
+            this.$axios.get('/101071201').then((response)=>{
+                console.log(response.data.data.forecast);
+                var forecastList = response.data.data.forecast;
+                this.weahterToday.type = forecastList[0].type;
+                this.weahterToday.low = forecastList[0].low.replace('低温 ','');
+                this.weahterToday.high = forecastList[0].high.replace('高温 ','');
+                this.weahterToday.fx = forecastList[0].fx;
+                this.weahterToday.fl = forecastList[0].fl;
+                this.weahterToday.notice = forecastList[0].notice;
+                this.weahterToday.icon = this.getWeatherIcon(forecastList[0].type);
+
+                this.weahterTomorrow.type = forecastList[1].type;
+                this.weahterTomorrow.low = forecastList[1].low.replace('低温 ','');
+                this.weahterTomorrow.high = forecastList[1].high.replace('高温 ','');
+                this.weahterTomorrow.fx = forecastList[1].fx;
+                this.weahterTomorrow.fl = forecastList[1].fl;
+                this.weahterTomorrow.notice = forecastList[1].notice;
+                this.weahterTomorrow.icon = this.getWeatherIcon(forecastList[1].type);
             }).catch((response)=>{
                 console.log(response);
             })
