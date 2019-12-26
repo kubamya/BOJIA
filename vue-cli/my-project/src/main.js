@@ -18,7 +18,9 @@ axios.defaults.baseURL = '/api';
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-
+// 引入echarts
+import echarts from 'echarts';
+Vue.prototype.$echarts = echarts;
 
 // Vue.prototype.HOST='/weatherApi'
 

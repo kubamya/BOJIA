@@ -18,14 +18,26 @@
             <div class="home-weather">
                 <weatherCom></weatherCom>
             </div>
+
+            <div class="home-info">
+                <homeInfoCom></homeInfoCom>
+            </div>
+
+            <div class="home-meter">
+                <meterCom></meterCom>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import weather from '@/components/weather.vue';
+import meter from '@/components/meter.vue';
+import homeInfo from '@/components/homeInfo.vue';
 export default {
     components:{
-        weatherCom: weather
+        weatherCom: weather,
+        meterCom: meter,
+        homeInfoCom: homeInfo
     },
     data(){
         return {
@@ -50,6 +62,7 @@ export default {
     background-color: #409EFF;
     width: 100%;
     height: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
 .home-head-bar{
     width: 100%;
@@ -67,6 +80,7 @@ export default {
 }
 .home-head-more i{
     color: #fff;
+    font-size: 24px;
 }
 .home-head-title{
     width: 100%;
@@ -97,6 +111,20 @@ export default {
     width: 100%;
     height: calc(100% - 50px);
     position: relative;
+}
+.home-meter{
+    width: 100%;
+    height: 230px;
+    position: absolute;
+    bottom: 50px;
+    box-sizing: border-box;
+    border-top: 1px solid #eee;
+}
+.home-info{
+    width: 100%;
+    height: calc(100% - 480px);
+    position: absolute;
+    top: 200px;
 }
 /* .home-weather-day{
     width: 50%;
