@@ -10,15 +10,27 @@
                 <img src="../../static/img/orange.jpg" alt="">
             </div>
             <div class="homeInfo-content-text">
-                <ul>
-                    <li>·模&nbsp;&nbsp;&nbsp;&nbsp;式：手动模式</li>
-                    <li>·卷帘机：正在下行</li>
-                    <li>·卷膜机：卷帘机已打开，无法操作卷膜机</li>
-                    <li>·水&nbsp;&nbsp;&nbsp;&nbsp;泵：关闭</li>
-                    <li>·电磁阀：关闭</li>
-                    <li>·肥&nbsp;&nbsp;&nbsp;&nbsp;料：关闭</li>
-                    <li>·补光灯：关闭</li>
-                </ul>
+                <div class="homeInfo-content-text-row">
+                    <div class="homeInfo-content-text-label">模式：</div><div class="homeInfo-content-text-value">手动模式</div>
+                </div>  
+                <div class="homeInfo-content-text-row">
+                    <div class="homeInfo-content-text-label">卷帘机：</div><div class="homeInfo-content-text-value">正在下行</div>
+                </div>
+                <div class="homeInfo-content-text-row">
+                    <div class="homeInfo-content-text-label">卷膜机：</div><div class="homeInfo-content-text-value">卷帘机已打开，无法操作卷膜机</div>
+                </div>
+                <div class="homeInfo-content-text-row">
+                    <div class="homeInfo-content-text-label">水泵：</div><div class="homeInfo-content-text-value">关闭</div>
+                </div>
+                <div class="homeInfo-content-text-row">
+                    <div class="homeInfo-content-text-label">电磁阀：</div><div class="homeInfo-content-text-value">关闭</div>
+                </div>
+                <div class="homeInfo-content-text-row">
+                    <div class="homeInfo-content-text-label">肥料：</div><div class="homeInfo-content-text-value">关闭</div>
+                </div>
+                <div class="homeInfo-content-text-row">
+                    <div class="homeInfo-content-text-label">补光灯：</div><div class="homeInfo-content-text-value">关闭</div>
+                </div>
             </div>
         </div>
     </div>
@@ -65,7 +77,7 @@
 .homeInfo-content-img{
     /* background-color: #cccccc; */
     text-align: center;
-    width: 40%;
+    width: 50%;
     height: 100%;
     position: absolute;
     top: 0;
@@ -75,7 +87,7 @@
     width: 90%;
 }
 .homeInfo-content-text{
-    width: 60%;
+    width: 50%;
     height: 100%;
     position: absolute;
     top: 0;
@@ -84,7 +96,21 @@
     color: #333;
     padding-left: 20px;
 }
-.homeInfo-content-text ul{
-    list-style: none;
+.homeInfo-content-text-row{
+    width: 100%;
+}
+.homeInfo-content-text-label{
+    width: 30%;
+    font-size: 14px;
+    color: #333;
+    text-align: right;
+    float: left;
+}
+.homeInfo-content-text-value{
+    width: 70%;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    float: left;
 }
 </style>
