@@ -100,14 +100,14 @@
     width: 100%;
 }
 .homeInfo-content-text-label{
-    width: 30%;
+    width: 40%;
     font-size: 14px;
     color: #333;
     text-align: right;
     float: left;
 }
 .homeInfo-content-text-value{
-    width: 70%;
+    width: 60%;
     font-size: 14px;
     color: #333;
     text-align: left;

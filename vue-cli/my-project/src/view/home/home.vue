@@ -18,14 +18,14 @@
             <div class="home-weather">
                 <weatherCom></weatherCom>
             </div>
+        </div>
 
-            <div class="home-info">
-                <homeInfoCom></homeInfoCom>
-            </div>
+        <div class="home-info">
+            <homeInfoCom></homeInfoCom>
+        </div>
 
-            <div class="home-meter">
-                <meterCom></meterCom>
-            </div>
+        <div class="home-meter">
+            <meterCom></meterCom>
         </div>
     </div>
 </template>
@@ -121,10 +121,12 @@ export default {
     border-top: 1px solid #eee;
 }
 .home-info{
+    background-color: #fff;
     width: 100%;
     height: calc(100% - 480px);
     position: absolute;
     top: 200px;
+    overflow-y: auto;
 }
 /* .home-weather-day{
     width: 50%;
