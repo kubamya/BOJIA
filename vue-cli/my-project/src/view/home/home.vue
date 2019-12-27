@@ -19,14 +19,13 @@
                 <weatherCom></weatherCom>
             </div>
         </div>
-
+        <div class="home-meter">
+            <meterCom></meterCom>
+        </div>
         <div class="home-info">
             <homeInfoCom></homeInfoCom>
         </div>
 
-        <div class="home-meter">
-            <meterCom></meterCom>
-        </div>
     </div>
 </template>
 <script>
@@ -115,17 +114,17 @@ export default {
 .home-meter{
     width: 100%;
     height: 230px;
-    position: absolute;
-    bottom: 50px;
+    /* position: absolute;
+    bottom: 50px; */
     box-sizing: border-box;
     border-top: 1px solid #eee;
 }
 .home-info{
     background-color: #fff;
     width: 100%;
-    height: calc(100% - 480px);
-    position: absolute;
-    top: 200px;
+    height: calc(100% - 430px);
+    /* position: absolute;
+    top: 200px; */
     overflow-y: auto;
 }
 /* .home-weather-day{
