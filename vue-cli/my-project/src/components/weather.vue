@@ -10,10 +10,10 @@
                     <p class="weather-tempurate">{{weahterToday.type}}</p>
                 </div>
                 <div class="home-weather-day-info-row" style="width:60%;text-align:left;">
-                    <!-- <p class="weather-text">{{LocationCity}}</p> -->
-                    <p class="weather-text">今日天气指数</p>
-                    <p class="weather-text">{{weahterToday.low}}~{{weahterToday.high}}</p>
-                    <p class="weather-text">{{weahterToday.fx}} - {{weahterToday.fl}}</p>
+                    <p class="weather-text">{{LocationCity}}</p>
+                    <!-- <p class="weather-text">今日天气指数</p> -->
+                    <p class="weather-text">{{weahterToday.low}} ~ {{weahterToday.high}}</p>
+                    <p class="weather-text">{{weahterToday.fx}} ~ {{weahterToday.fl}}</p>
                     <p class="weather-text" style="font-size:10px;">{{weahterToday.notice}}</p>
                 </div>
             </div>
@@ -28,10 +28,10 @@
                     <p class="weather-tempurate">{{weahterTomorrow.type}}</p>
                 </div>
                 <div class="home-weather-day-info-row" style="width:60%;text-align:left;">
-                    <!-- <p class="weather-text">{{LocationCity}}</p> -->
-                    <p class="weather-text">明日天气指数</p>
-                    <p class="weather-text">{{weahterTomorrow.low}}~{{weahterTomorrow.high}}</p>
-                    <p class="weather-text">{{weahterTomorrow.fx}} - {{weahterTomorrow.fl}}</p>
+                    <p class="weather-text">{{LocationCity}}</p>
+                    <!-- <p class="weather-text">明日天气指数</p> -->
+                    <p class="weather-text">{{weahterTomorrow.low}} ~ {{weahterTomorrow.high}}</p>
+                    <p class="weather-text">{{weahterTomorrow.fx}} ~ {{weahterTomorrow.fl}}</p>
                     <p class="weather-text" style="font-size:10px;">{{weahterTomorrow.notice}}</p>
                 </div>
             </div>
@@ -39,7 +39,7 @@
     </div>
 </template>
 <script>
-// import BMap from 'BMap'
+import BMap from 'BMap'
 import global_ from '@/global/global.vue';
 import $ from 'jquery'
 export default {
@@ -68,21 +68,22 @@ export default {
         }
     },
     mounted(){
-        // this.city();    //触发获取城市方法
+        this.city();    //触发获取城市方法
         this.getWeather();//调用国家气象局接口获取天气数据
     },
     methods:{
-        // city(){    //定义获取城市方法
-        //     var geolocation = new BMap.Geolocation();
-        //     var _this = this
-        //     geolocation.getCurrentPosition(function getinfo(position){
-        //         let city = position.address.city;             //获取城市信息
-        //         let province = position.address.province;    //获取省份信息
-        //         _this.LocationCity = city
-        //     }, function(e) {
-        //         _this.LocationCity = "定位失败"
-        //     }, {provider: 'baidu'});		
-        // },
+        city(){    //定义获取城市方法
+            var geolocation = new BMap.Geolocation();
+            var _this = this
+            geolocation.getCurrentPosition(function getinfo(position){
+                let city = position.address.city;             //获取城市信息
+                let province = position.address.province;    //获取省份信息
+                console.log(position.address);
+                _this.LocationCity = city
+            }, function(e) {
+                _this.LocationCity = "定位失败"
+            }, {provider: 'baidu'});		
+        },
 
         //匹配天气图标
         getWeatherIcon(weatherStr){

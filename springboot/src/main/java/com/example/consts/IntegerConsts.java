@@ -8,6 +8,8 @@ public class IntegerConsts {
     /*********************************** 接口返回 **********************************/
     public static final Integer RET_CODE_SUCCESS = 100;
 
+    public static final Integer RET_CODE_FAIL = 400;
+
     public static final Integer RET_CODE_NODATA = 101;
 
     public static final Integer RET_CODE_DATABASEERROR = 102;
