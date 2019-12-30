@@ -2,7 +2,8 @@
     <div class="home-container">
         <div class="home-head-container">
             <div class="home-head-bar">
-                <div class="home-head-more"><i class="el-icon-s-operation"></i></div>
+                <!-- <div class="home-head-more" @click="openMore()"><i class="el-icon-s-operation"></i></div> -->
+                <div class="home-head-more" ><i class="el-icon-s-operation"></i></div>
                 <div class="home-head-title">首页</div>
                 <div class="home-head-select">
                     <!-- <el-select v-model="value" placeholder="请选择">
@@ -26,6 +27,14 @@
             <homeInfoCom></homeInfoCom>
         </div>
 
+        <el-drawer
+            title="首页更多"
+            :visible.sync="drawer"
+            :show-close="false"
+            :direction="direction">
+            <span>暂无内容</span>
+        </el-drawer>
+
     </div>
 </template>
 <script>
@@ -45,7 +54,16 @@ export default {
                 {value:'选项1', label:'一号大棚'},
                 {value:'选项2', label:'二号大棚'},
                 {value:'选项3', label:'三号大棚'}
-            ]
+            ],
+
+            //抽屉
+             drawer: false,
+             direction: 'ltr',
+        }
+    },
+    methods:{
+        openMore(){
+            this.drawer = true;
         }
     }
 }
@@ -76,6 +94,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 666;
 }
 .home-head-more i{
     color: #fff;
@@ -126,6 +145,9 @@ export default {
     /* position: absolute;
     top: 200px; */
     overflow-y: auto;
+}
+.el-drawer ltr{
+    width: 80% !important;
 }
 /* .home-weather-day{
     width: 50%;
