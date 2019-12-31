@@ -87,10 +87,25 @@ export default {
 
         //匹配天气图标
         getWeatherIcon(weatherStr){
-            switch(weatherStr){
-                case '小雨': return 'el-icon-light-rain';
-                case '多云': return 'el-icon-cloudy';
-                case '晴': return 'el-icon-sunny';
+            // switch(weatherStr){
+            //     case '小雨': return 'el-icon-light-rain';
+            //     case '多云': return 'el-icon-cloudy';
+            //     case '晴': return 'el-icon-sunny';
+            // }
+            if(weatherStr.indexOf('阴') != -1){
+                return 'el-icon-cloudy';
+            }
+            if(weatherStr.indexOf('晴') != -1){
+                return 'el-icon-sunny';
+            }
+            if(weatherStr.indexOf('雨') != -1){
+                return 'el-icon-heavy-rain';
+            }
+            if(weatherStr.indexOf('雪') != -1){
+                return 'el-icon-light-rain';
+            }
+            if(weatherStr.indexOf('暴') != -1){
+                return 'el-icon-lightning';
             }
         },
 
