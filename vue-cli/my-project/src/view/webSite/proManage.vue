@@ -51,7 +51,7 @@
                         <el-table-column label="操作">
                             <template slot-scope="scope">
                                 <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
-                                <el-button type="text" size="small">删除</el-button>
+                                <el-button type="text" size="small" @click="del(scope.row)">删除</el-button>
                             </template>
                         </el-table-column>                  
                     </el-table>
@@ -126,6 +126,35 @@ export default {
         this.getProList();
     },
     methods:{
+        // 删除按钮
+        del(row){
+            this.$confirm('此操作将删除该产品, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    var params = new URLSearchParams();
+                    params.append('proId', row.proId);
+
+                    this.$axios({method:'post',url: _global.requestUrl+'/api/pro/v1/setProDisable', data: params})
+                        .then(response => {
+                            var res = this.$handleRes(response);
+                            if(res.code == 100){
+                                this.$message({
+                                    message: res.msg,
+                                    type: 'success'
+                                });
+                                this.getProList();
+                            }else{
+                                console.log(res.data);
+                                this.$message({
+                                    message: res.msg,
+                                    type: 'warning'
+                                });
+                            }
+                        });
+                });
+        },
         // 编辑按钮
         edit(row){
             this.dialogTitle = '编辑产品'
@@ -165,6 +194,7 @@ export default {
             this.dialogVisible = true;
             this.cpmcAdd = '';
             this.cplxAdd = '';
+            this.proId = '';
         },
         // 新增表单保存事件
         save(){
@@ -197,6 +227,7 @@ export default {
                 params.append('cjr', this.$handleLocalStorage('get','userid'));
                 params.append('optFlag', 'add');
             }else{
+                params.append('proId', this.proId);
                 params.append('xgr', this.$handleLocalStorage('get','userid'));
                 params.append('optFlag', 'upt');
             }
@@ -238,7 +269,7 @@ export default {
 .proManage-header{
     width: 98%;
     height: 30px;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 30px;
     color: #666;
     border-bottom: 1px solid #409EFF;

@@ -53,12 +53,25 @@
         SET
             c_name = #{CName,jdbcType=VARCHAR},
             n_yx = #{NYx,jdbcType=INTEGER},
-            n_type = #{NType,jdbcType=INTEGER},
-            c_cjr = #{CCjr,jdbcType=VARCHAR},
-            c_xgr = #{CXgr,jdbcType=VARCHAR},
-            d_cjsj = #{DCjsj,jdbcType=TIMESTAMP},
+            n_type = #{NType,jdbcType=INTEGER},            
+           	<if test="CCjr != null">
+           		c_cjr = #{CCjr,jdbcType=VARCHAR},
+           	</if>
+           	<if test="DCjsj != null">
+           		d_cjsj = #{DCjsj,jdbcType=TIMESTAMP},
+           	</if>
+            c_xgr = #{CXgr,jdbcType=VARCHAR},            
             d_xgsj = #{DXgsj,jdbcType=TIMESTAMP}
         WHERE
             c_id = #{CId,jdbcType=VARCHAR}
     </update>
+    
+    <update id="setProDisable" parameterType="com.example.model.Production">
+        UPDATE t_sims_poduction
+        SET
+            n_yx = 2
+        WHERE
+            c_id = #{CId,jdbcType=VARCHAR}
+    </update>
+    
 </mapper>

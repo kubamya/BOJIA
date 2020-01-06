@@ -25,4 +25,10 @@ public interface ProductionMapper {
      * @return
      */
     public List<Production> getProList();
+    
+    /**
+     * 产品置为无效
+     * @param production
+     */
+    public void setProDisable(Production production);
 }

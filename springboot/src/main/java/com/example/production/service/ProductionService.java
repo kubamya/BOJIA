@@ -26,4 +26,10 @@ public interface ProductionService {
      * @return
      */
     public List<Map<String, Object>> getProList();
+    
+    /**
+     * 产品置为无效
+     * @param production
+     */
+    public void setProDisable(Production production);
 }

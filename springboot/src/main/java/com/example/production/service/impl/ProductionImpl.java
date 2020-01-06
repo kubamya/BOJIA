@@ -51,4 +51,9 @@ public class ProductionImpl implements ProductionService {
 
         return result;
     }
+
+	@Override
+	public void setProDisable(Production production) {
+		productionMapper.setProDisable(production);
+	}
 }

@@ -23,6 +23,25 @@ public class ProductionController {
 
     @Autowired
     private ProductionService productionService;
+    
+    /**
+     * 产品置为无效
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/setProDisable")
+    public Map<String, Object> setProDisable(HttpServletRequest request) {
+    	
+    	Production pro = getProductionFromRequest(request);
+    	try {
+			productionService.setProDisable(pro);
+			
+			return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS, null, "删除成功！");
+		} catch (Exception e) {
+			return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR, e.getMessage(), "删除失败！");
+		}
+    }
 
     /**
      * 获取产品列表
@@ -101,7 +120,9 @@ public class ProductionController {
 
         pro.setCName(request.getParameter("proName"));
         pro.setNYx(IntegerConsts.CODE_YES);
-        pro.setNType(Integer.parseInt(request.getParameter("type")));
+        if(request.getParameter("type") != null) {
+        	pro.setNType(Integer.parseInt(request.getParameter("type")));
+        }
 
         return pro;
     }
