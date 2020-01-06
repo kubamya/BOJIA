@@ -3,11 +3,15 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import nav from '@/components/nav.vue'
 import main from '@/view/main/main.vue'
+import mainPc from '@/view/main/mainPc.vue'
 import login from '@/view/login/login.vue'
+import loginPc from '@/view/login/loginPc.vue'
 import home from '@/view/home/home.vue'
 import manu from '@/view/manu/manu.vue'
 import auto from '@/view/auto/auto.vue'
 import mine from '@/view/mine/mine.vue'
+import proManage from '@/view/website/proManage.vue'
+import deviceManage from '@/view/website/deviceManage.vue'
 
 Vue.use(Router)
 
@@ -17,6 +21,28 @@ export default new Router({
       path: '/nav',
       name: 'nav',
       component: nav
+    },
+    {
+      path: '/loginPc',
+      name: 'loginPc',
+      component: loginPc
+    },
+    {
+      path: '/mainPc',
+      name: 'mainPc',
+      component: mainPc,
+      children:[
+        {
+          path: '/proManage',
+          name: 'proManage',
+          component: proManage
+        },
+        {
+          path: '/deviceManage',
+          name: 'deviceManage',
+          component: deviceManage
+        },
+      ]
     },
     {
       path: '/login',

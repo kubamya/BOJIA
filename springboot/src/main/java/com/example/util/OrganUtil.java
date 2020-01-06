@@ -64,4 +64,7 @@ public class OrganUtil {
         return null;
     }
 
+    public void getDeptTree(){
+
+    }
 }

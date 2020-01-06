@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import _global from '@/global/global.vue'
 export default {
   date(){
     return {
@@ -12,7 +13,11 @@ export default {
     }
   },
   mounted(){
-    this.$router.push({path: '/login'});
+    if('app' == _global.appFlag){
+      this.$router.push({path: '/login'});
+    }else if('web' == _global.appFlag){
+      this.$router.push({path: '/loginPc'});
+    }    
   }
   
 }

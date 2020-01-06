@@ -1,5 +1,8 @@
 package com.example.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -7,7 +10,61 @@ import java.util.UUID;
  */
 public class CommonUtil {
 
+    /**
+     * 生成32位uuid
+     * @return
+     */
     public static String getUUid(){
         return UUID.randomUUID().toString().replaceAll("-","");
+    }
+
+    public static String dateToStr(Date date){
+        if(date == null){
+            return null;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return sdf.format(date);
+    }
+
+    /**
+     * 字符串转日期
+     * @param str
+     * @return
+     */
+    public static Date strToDate(String str){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            return sdf.parse(str);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 获取当前日期
+     * @return
+     */
+    public static Date getCurDate(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return df.parse(df.format(new Date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 获取当前时间
+     * @return
+     */
+    public static Date getCurDateTime(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return df.parse(df.format(new Date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

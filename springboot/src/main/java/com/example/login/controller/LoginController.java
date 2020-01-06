@@ -3,19 +3,22 @@ package com.example.login.controller;
 import com.example.consts.IntegerConsts;
 import com.example.login.service.LoginService;
 import com.example.util.CommonReturnUtil;
+import com.example.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/api/login/v1")
 public class LoginController {
 
     @Autowired
@@ -30,9 +33,16 @@ public class LoginController {
     @RequestMapping("/loginDefault")
     public Map<String, Object> loginDefault(HttpServletRequest request) {
         //获取传递参数
-        String loginid = request.getParameter("loginid");
+        String loginid = request.getParameter("loginId");
         String password = request.getParameter("password");
 
+        try {
+            password = SecurityUtil.MD5Encode(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         //组装查询参数
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("loginid", loginid);

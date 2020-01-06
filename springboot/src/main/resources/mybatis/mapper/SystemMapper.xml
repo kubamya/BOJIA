@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.system.mapper.SystemMapper">
+    <select id="getSysInfo" resultType="com.example.model.SysInfo">
+		SELECT
+            c_version AS CVersion,
+            c_name AS CName,
+            d_fbsj AS DFbsj
+        FROM
+            t_sims_version
+        ORDER BY
+            d_fbsj DESC
+            LIMIT 1
+	</select>
+
+</mapper>

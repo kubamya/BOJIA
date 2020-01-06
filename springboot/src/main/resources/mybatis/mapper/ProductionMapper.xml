@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.production.mapper.ProductionMapper">
+
+    <select id="getProList" resultType="com.example.model.Production">
+        SELECT
+            pro.c_id AS CId,
+            pro.c_name AS CName,
+            pro.n_yx AS NYx,
+            pro.n_type AS NType,
+            ucj.c_username AS CCjr,
+            uxg.c_username AS CXgr,
+            pro.d_cjsj AS DCjsj,
+            pro.d_xgsj AS DXgsj
+        FROM
+            t_sims_poduction AS pro
+            LEFT JOIN t_sims_user AS ucj ON pro.c_cjr = ucj.c_id
+            LEFT JOIN t_sims_user AS uxg ON pro.c_xgr = uxg.c_id
+        WHERE
+            n_yx = 1
+        ORDER BY
+            pro.d_xgsj,
+            pro.d_cjsj
+        DESC
+    </select>
+
+    <insert id="addProduction" parameterType="com.example.model.Production">
+        INSERT INTO t_sims_poduction(
+            c_id,
+            c_name,
+            n_yx,
+            n_type,
+            c_cjr,
+            c_xgr,
+            d_cjsj,
+            d_xgsj
+        )
+        VALUES
+            (
+                #{CId, jdbcType=VARCHAR},
+                #{CName, jdbcType=VARCHAR},
+                #{NYx, jdbcType=INTEGER},
+                #{NType, jdbcType=INTEGER},
+                #{CCjr, jdbcType=VARCHAR},
+                #{CXgr, jdbcType=VARCHAR},
+                #{DCjsj, jdbcType=TIMESTAMP},
+                #{DXgsj, jdbcType=TIMESTAMP}
+             );
+    </insert>
+
+    <update id="updateProduction" parameterType="com.example.model.Production">
+        UPDATE t_sims_poduction
+        SET
+            c_name = #{CName,jdbcType=VARCHAR},
+            n_yx = #{NYx,jdbcType=INTEGER},
+            n_type = #{NType,jdbcType=INTEGER},
+            c_cjr = #{CCjr,jdbcType=VARCHAR},
+            c_xgr = #{CXgr,jdbcType=VARCHAR},
+            d_cjsj = #{DCjsj,jdbcType=TIMESTAMP},
+            d_xgsj = #{DXgsj,jdbcType=TIMESTAMP}
+        WHERE
+            c_id = #{CId,jdbcType=VARCHAR}
+    </update>
+</mapper>

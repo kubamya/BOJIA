@@ -10,7 +10,7 @@ import java.net.Socket;
 
 public class TCPUtil {
 
-    public static void receive() throws Exception{
+    public static String receive() throws Exception{
         //创建服务器ServerSocket对象
         ServerSocket ss = new ServerSocket(6666);
 
@@ -22,15 +22,14 @@ public class TCPUtil {
         int len = is.read(bys);
         String str = new String(bys,0,len);
 
-        //将从客户端传来的消息输出到控制台
-        System.out.println("来自客户端："+str);
-
         //给出获得消息后的反馈
         OutputStream os = s.getOutputStream();
         os.write("消息已经收到".getBytes());
 
         //释放资源
         s.close();
+
+        return str;
     }
 
     /**

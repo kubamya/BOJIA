@@ -9,6 +9,65 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueResource from 'vue-resource'
 
+//获取当前时间公用方法
+Vue.prototype.$getCurtime = function(){
+  var obj = new Date();
+  var year = obj.getFullYear();
+  var month = obj.getMonth() + 1;
+  var day = obj.getDate();
+  var hour = obj.getHours();
+  var min = obj.getMinutes();
+  var sec = obj.getSeconds();
+
+  return year+''+month+''+day+''+hour+''+min+''+sec;
+}
+
+//操作LocalStorage公用方法
+Vue.prototype.$handleLocalStorage = function(method, key, value){
+  switch (method) {
+    case 'get' : {
+      let temp = window.localStorage.getItem(key);
+      if (temp) {
+        return temp
+      } else {
+        return false
+      }
+    }
+    case 'set' : {
+      window.localStorage.setItem(key, value);
+      break
+    }
+    case 'remove': {
+      window.localStorage.removeItem(key);
+      break
+    }
+    default : {
+      return false
+    }
+  }
+}
+
+//处理请求结果的公用方法
+Vue.prototype.$handleRes = function(res){
+  if(res == undefined){
+    return '无返回值'
+  }
+
+  if(res.status == 200){
+    var resData = {
+      code:'',
+      data:'',
+      msg:''
+    };
+
+    resData.code = res.data.code;
+    resData.data = res.data.data;
+    resData.msg = res.data.msg;
+
+    return resData;
+
+  }
+}
 
 import apiConfig from '../config/api.config'
 
