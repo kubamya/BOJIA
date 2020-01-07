@@ -1,7 +1,10 @@
 <template>
     <div class="navPc-container">
         <div class="navPc-item" @click="goto(nav.path)" v-for="nav in navData" :key="nav.id">
-            {{nav.label}}
+            <i class="el-icon-user" v-if="nav.label == '客户管理'"></i>
+            <i class="el-icon-cpu" v-if="nav.label == '设备管理'"></i>
+            <i class="el-icon-office-building" v-if="nav.label == '用户管理'"></i>
+            <i class="el-icon-box" v-if="nav.label == '产品管理'"></i> {{nav.label}}
         </div>
     </div>
 </template>
@@ -12,7 +15,8 @@ export default {
             navData:[
                 {label:'产品管理',id:1,path:'/proManage'},
                 {label:'设备管理',id:2,path:'/deviceManage'},
-                {label:'用户管理',id:3,path:'/proManage'},
+                {label:'客户管理',id:4,path:'/customManage'},
+                {label:'用户管理',id:3,path:'/userManage'},
             ]
         }
     },

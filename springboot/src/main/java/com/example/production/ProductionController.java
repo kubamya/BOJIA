@@ -23,7 +23,22 @@ public class ProductionController {
 
     @Autowired
     private ProductionService productionService;
-    
+
+    /**
+     * 获取代售产品列表
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getSellProList")
+    public Map<String, Object> getSellProList(HttpServletRequest request) {
+        try{
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS, productionService.getSellProList(),"获取成功！");
+        }catch (Exception e){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR, e.getMessage(), "获取代售产品失败！");
+        }
+    }
+
     /**
      * 产品置为无效
      * @param request

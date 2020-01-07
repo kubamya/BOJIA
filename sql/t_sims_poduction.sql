@@ -12,7 +12,7 @@
  Target Server Version : 100005
  File Encoding         : 65001
 
- Date: 06/01/2020 16:16:56
+ Date: 07/01/2020 14:16:44
 */
 
 
@@ -28,7 +28,8 @@ CREATE TABLE "public"."t_sims_poduction" (
   "c_cjr" varchar(32) COLLATE "pg_catalog"."default",
   "c_xgr" varchar(32) COLLATE "pg_catalog"."default",
   "d_cjsj" timestamp(6),
-  "d_xgsj" timestamp(6)
+  "d_xgsj" timestamp(6),
+  "c_userid" varchar(32) COLLATE "pg_catalog"."default"
 )
 ;
 COMMENT ON COLUMN "public"."t_sims_poduction"."c_id" IS '产品id';
@@ -39,3 +40,9 @@ COMMENT ON COLUMN "public"."t_sims_poduction"."c_cjr" IS '创建人id';
 COMMENT ON COLUMN "public"."t_sims_poduction"."c_xgr" IS '修改人id';
 COMMENT ON COLUMN "public"."t_sims_poduction"."d_cjsj" IS '创建时间';
 COMMENT ON COLUMN "public"."t_sims_poduction"."d_xgsj" IS '修改时间';
+COMMENT ON COLUMN "public"."t_sims_poduction"."c_userid" IS '用户id';
+
+-- ----------------------------
+-- Primary Key structure for table t_sims_poduction
+-- ----------------------------
+ALTER TABLE "public"."t_sims_poduction" ADD CONSTRAINT "t_sims_poduction_pkey" PRIMARY KEY ("c_id");

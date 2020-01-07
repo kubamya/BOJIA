@@ -5,6 +5,7 @@ import java.util.Date;
 public class Production {
 	
 	private String CId;
+	private String CUserId;
 	private String CName;
 	private Integer NYx;
 	private Integer NType;
@@ -12,6 +13,13 @@ public class Production {
 	private String CXgr;
 	private Date DCjsj;
 	private Date DXgsj;
+	
+	public String getCUserId() {
+		return CUserId;
+	}
+	public void setCUserId(String cUserId) {
+		CUserId = cUserId;
+	}
 	public String getCId() {
 		return CId;
 	}

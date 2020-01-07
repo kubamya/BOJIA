@@ -31,4 +31,11 @@ public interface ProductionMapper {
      * @param production
      */
     public void setProDisable(Production production);
+
+    /**
+     * 获取代售产品列表
+     * @return
+     */
+    public List<Production> getSellProList();
+
 }

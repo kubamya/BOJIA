@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.device.mapper.DeviceMapper">
+
+    <insert id="addDev" parameterType="com.example.model.Device">
+        INSERT INTO t_sims_device ( c_id, c_proid, c_name, c_sbmy, n_sfyx, d_cjsj, c_cjr )
+        VALUES
+            (
+                #{CId, jdbcType=VARCHAR},
+                #{CProId, jdbcType=VARCHAR},
+                #{CName, jdbcType=VARCHAR},
+                #{CSbmy, jdbcType=VARCHAR},
+                1,
+                #{DCjsj, jdbcType=TIMESTAMP},
+                #{CCjr, jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <update id="updateDev" parameterType="com.example.model.Device">
+        UPDATE t_sims_device
+        SET c_proid = #{CProId, jdbcType=VARCHAR},
+        c_name = #{CName, jdbcType=VARCHAR},
+        c_sbmy = #{CSbmy, jdbcType=VARCHAR},
+        d_xgsj = #{DXgsj, jdbcType=TIMESTAMP},
+        c_xgr = #{CXgr, jdbcType=VARCHAR}
+        WHERE
+            c_id = #{CId, jdbcType=VARCHAR}
+    </update>
+
+    <update id="setDevDisable" parameterType="com.example.model.Device">
+        UPDATE t_sims_device
+        SET n_sfyx = 2
+        WHERE
+            c_id = #{CId, jdbcType=VARCHAR}
+    </update>
+
+    <select id="getDevList" resultType="com.example.model.Device">
+        SELECT
+            pro.c_name AS CProId,
+            dev.c_name AS CName,
+            dev.c_id AS CId,
+            dev.n_sfzx AS NSfzx,
+            dev.d_cjsj AS DCjsj,
+            dev.d_xgsj AS DXgsj
+        FROM
+            t_sims_device AS dev
+            LEFT JOIN t_sims_poduction AS pro ON dev.c_proid = pro.c_id
+        WHERE
+            dev.n_sfyx = 1
+        ORDER BY
+            dev.d_cjsj,
+            dev.d_xgsj DESC
+    </select>
+
+    <select id="getDevById" resultType="com.example.model.Device">
+        SELECT
+            c_proid AS CProId,
+            c_name AS CName,
+            c_id AS CId,
+            c_sbmy AS CSbmy
+        FROM
+            t_sims_device
+        WHERE
+            c_id = #{CId, jdbcType=VARCHAR}
+    </select>
+
+</mapper>

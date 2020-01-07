@@ -43,6 +43,7 @@ public class ProductionImpl implements ProductionService {
             proMap.put("type",production.getNType());
             proMap.put("cjr", production.getCCjr());
             proMap.put("xgr", production.getCXgr());
+            proMap.put("user", production.getCUserId());
             proMap.put("cjsj", CommonUtil.dateToStr(production.getDCjsj()));
             proMap.put("xgsj", CommonUtil.dateToStr(production.getDXgsj()));
 
@@ -56,4 +57,22 @@ public class ProductionImpl implements ProductionService {
 	public void setProDisable(Production production) {
 		productionMapper.setProDisable(production);
 	}
+
+    @Override
+    public List<Map<String, Object>> getSellProList() {
+        List<Production> productionList = productionMapper.getSellProList();
+        if(productionList == null || productionList.isEmpty()){
+            return null;
+        }
+
+        List<Map<String, Object>> resultList = new ArrayList<>();
+        for (Production production : productionList){
+            Map<String, Object> proMap = new HashMap<>();
+            proMap.put("label", production.getCName());
+            proMap.put("value", production.getCId());
+
+            resultList.add(proMap);
+        }
+        return resultList;
+    }
 }

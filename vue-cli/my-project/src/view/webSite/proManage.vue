@@ -41,9 +41,16 @@
             </div> -->
             <div class="proManage-info">
                 <div class="proManage-table">
-                    <el-table :data="tableData" style="width: 100%">
+                    <el-table 
+                        :data="tableData" 
+                        stripe
+                        v-loading="loading"
+                        highlight-current-row
+                        style="width: 100%">
+                        <el-table-column prop="proId" label="产品序列号"></el-table-column>
                         <el-table-column prop="proName" label="产品名称"></el-table-column>
                         <el-table-column prop="type" label="产品类型"></el-table-column>
+                        <el-table-column prop="user" label="所属客户"></el-table-column>
                         <el-table-column prop="cjr" label="创建人"></el-table-column>
                         <el-table-column prop="xgr" label="修改人"></el-table-column>
                         <el-table-column prop="cjsj" label="创建时间"></el-table-column>
@@ -102,6 +109,7 @@ import _global from '@/global/global.vue'
 export default {
     data(){
         return{
+            loading:false,
             cpmc:'',
             cpmcAdd:'',
             cplx:'',
@@ -165,6 +173,7 @@ export default {
         },
         // 获取产品列表
         getProList(){
+            this.loading = true;
             var params = new URLSearchParams();
             this.$axios({method:'post',url: _global.requestUrl+'/api/pro/v1/getProList', data: params})
                 .then(response => {
@@ -172,12 +181,14 @@ export default {
 
                     if(res.code == 100){
                         this.tableData = res.data;
+                        this.loading = false;
                     }else{
                         console.log(res.data);
                         this.$message({
                             message: res.msg,
                             type: 'warning'
                         });
+                        this.loading = false;
                     }
                 });
         },
@@ -186,6 +197,7 @@ export default {
         cancle(){
             this.cpmcAdd = '';
             this.cplxAdd = '';
+            this.proId = '';
             this.dialogVisible = false;
         },
 
