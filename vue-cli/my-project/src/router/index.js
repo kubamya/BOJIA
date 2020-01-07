@@ -12,6 +12,8 @@ import auto from '@/view/auto/auto.vue'
 import mine from '@/view/mine/mine.vue'
 import proManage from '@/view/website/proManage.vue'
 import deviceManage from '@/view/website/deviceManage.vue'
+import customManage from '@/view/website/customManage.vue'
+import userManage from '@/view/website/userManage.vue'
 
 Vue.use(Router)
 
@@ -41,6 +43,16 @@ export default new Router({
           path: '/deviceManage',
           name: 'deviceManage',
           component: deviceManage
+        },
+        {
+          path: '/customManage',
+          name: 'customManage',
+          component: customManage
+        },
+        {
+          path: '/userManage',
+          name: 'userManage',
+          component: userManage
         },
       ]
     },

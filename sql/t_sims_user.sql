@@ -12,7 +12,7 @@
  Target Server Version : 100005
  File Encoding         : 65001
 
- Date: 31/12/2019 14:33:37
+ Date: 07/01/2020 16:57:58
 */
 
 
@@ -34,7 +34,8 @@ CREATE TABLE "public"."t_sims_user" (
   "d_cjsj" timestamp(6),
   "c_cjrid" varchar(32) COLLATE "pg_catalog"."default",
   "d_xgsj" timestamp(6),
-  "c_xgrid" varchar(32) COLLATE "pg_catalog"."default"
+  "c_xgrid" varchar(32) COLLATE "pg_catalog"."default",
+  "n_type" int4
 )
 ;
 COMMENT ON COLUMN "public"."t_sims_user"."c_id" IS '主键';
@@ -51,8 +52,9 @@ COMMENT ON COLUMN "public"."t_sims_user"."d_cjsj" IS '创建时间';
 COMMENT ON COLUMN "public"."t_sims_user"."c_cjrid" IS '创建人id';
 COMMENT ON COLUMN "public"."t_sims_user"."d_xgsj" IS '修改时间';
 COMMENT ON COLUMN "public"."t_sims_user"."c_xgrid" IS '修改人id';
+COMMENT ON COLUMN "public"."t_sims_user"."n_type" IS '用户类型0客户1用户';
 
 -- ----------------------------
 -- Records of t_sims_user
 -- ----------------------------
-INSERT INTO "public"."t_sims_user" VALUES ('000', 'admin', '123', '超管_Urttom', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."t_sims_user" VALUES ('000', 'admin', '202cb962ac59075b964b07152d234b70', '超管_Urttom', '0000', '333', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);

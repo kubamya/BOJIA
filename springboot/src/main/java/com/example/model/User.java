@@ -17,10 +17,19 @@ public class User {
     private Date DXgsj;
     private String CCjr;
     private String CXgr;
+    private Integer NType;
     
     
 
-    public String getCUserName() {
+    public Integer getNType() {
+		return NType;
+	}
+
+	public void setNType(Integer nType) {
+		NType = nType;
+	}
+
+	public String getCUserName() {
 		return CUserName;
 	}
 
