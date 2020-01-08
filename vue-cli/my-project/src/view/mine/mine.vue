@@ -8,7 +8,7 @@
             <div class="mine-userInfo-img">
                 <img src="../../../static/img/user.jpg" alt="">
             </div>
-            <div class="mine-userInfo-text">超级管理员</div>
+            <div class="mine-userInfo-text">{{userName}}</div>
         </div>
 
         <div class="mine-opera-container">
@@ -39,10 +39,17 @@
 export default {
     data(){
         return{
-
+            userName:'',
         }
     },
+    mounted(){
+        this.getUserInfo();
+    },
     methods:{
+        getUserInfo(){
+            this.userName = this.$handleLocalStorage('get','username');
+
+        },
         logout(){
             this.$handleLocalStorage('remove', 'lastLoginTime');
             this.$router.push({path:'/login'});

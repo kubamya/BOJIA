@@ -2,7 +2,7 @@
 <script>
 
 // 服务器地址
-const requestUrl = "http://localhost:8082";
+const requestUrl = "http://172.18.48.97:8082";
 
 // 环境标识
 // dev：开发环境 pro：生产环境

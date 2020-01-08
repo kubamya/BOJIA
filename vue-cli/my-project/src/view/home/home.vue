@@ -3,7 +3,7 @@
         <div class="home-head-container">
             <div class="home-head-bar">
                 <!-- <div class="home-head-more" @click="openMore()"><i class="el-icon-s-operation"></i></div> -->
-                <div class="home-head-more" ><i class="el-icon-s-operation"></i></div>
+                <!-- <div class="home-head-more" ><i class="el-icon-s-operation"></i></div> -->
                 <div class="home-head-title">首页</div>
                 <div class="home-head-select">
                     <!-- <el-select v-model="value" placeholder="请选择">

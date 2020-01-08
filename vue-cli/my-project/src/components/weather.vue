@@ -40,7 +40,7 @@
 </template>
 <script>
 import BMap from 'BMap'
-import global_ from '@/global/global.vue';
+import _global from '@/global/global.vue';
 import $ from 'jquery'
 export default {
     data(){
@@ -69,7 +69,7 @@ export default {
     },
     mounted(){
         this.city();    //触发获取城市方法
-        this.getWeather();//调用国家气象局接口获取天气数据
+        // this.getWeather();//调用国家气象局接口获取天气数据
     },
     methods:{
         city(){    //定义获取城市方法
@@ -80,6 +80,9 @@ export default {
                 let province = position.address.province;    //获取省份信息
                 console.log(position.address);
                 _this.LocationCity = city
+
+                _this.getWeather(city);
+
             }, function(e) {
                 _this.LocationCity = "定位失败"
             }, {provider: 'baidu'});		
@@ -87,11 +90,6 @@ export default {
 
         //匹配天气图标
         getWeatherIcon(weatherStr){
-            // switch(weatherStr){
-            //     case '小雨': return 'el-icon-light-rain';
-            //     case '多云': return 'el-icon-cloudy';
-            //     case '晴': return 'el-icon-sunny';
-            // }
             if(weatherStr.indexOf('阴') != -1){
                 return 'el-icon-cloudy';
             }
@@ -107,28 +105,44 @@ export default {
             if(weatherStr.indexOf('暴') != -1){
                 return 'el-icon-lightning';
             }
+            if(weatherStr.indexOf('云') != -1){
+                return 'el-icon-cloudy-and-sunny';
+            }
         },
 
         //接口调用获取天气信息
-        getWeather(){
-            this.$axios.get('/101071201').then((response)=>{
-                console.log(response.data.data.forecast);
-                var forecastList = response.data.data.forecast;
-                this.weahterToday.type = forecastList[0].type;
-                this.weahterToday.low = forecastList[0].low.replace('低温 ','');
-                this.weahterToday.high = forecastList[0].high.replace('高温 ','');
-                this.weahterToday.fx = forecastList[0].fx;
-                this.weahterToday.fl = forecastList[0].fl;
-                this.weahterToday.notice = forecastList[0].notice;
-                this.weahterToday.icon = this.getWeatherIcon(forecastList[0].type);
+        getWeather(city){
+            var params = new URLSearchParams();
+            params.append('city', city);
+            this.$axios({method:'post',url: _global.requestUrl+'/api/proxy/v1/getWeather', data: params})
+                .then((response)=>{
+                    var res = this.$handleRes(response);
 
-                this.weahterTomorrow.type = forecastList[1].type;
-                this.weahterTomorrow.low = forecastList[1].low.replace('低温 ','');
-                this.weahterTomorrow.high = forecastList[1].high.replace('高温 ','');
-                this.weahterTomorrow.fx = forecastList[1].fx;
-                this.weahterTomorrow.fl = forecastList[1].fl;
-                this.weahterTomorrow.notice = forecastList[1].notice;
-                this.weahterTomorrow.icon = this.getWeatherIcon(forecastList[1].type);
+                    if(res.code == 100){
+                        console.log(res.data);
+                        var forecastList = res.data.data.forecast;
+                        this.weahterToday.type = forecastList[0].type;
+                        this.weahterToday.low = forecastList[0].low.replace('低温 ','');
+                        this.weahterToday.high = forecastList[0].high.replace('高温 ','');
+                        this.weahterToday.fx = forecastList[0].fx;
+                        this.weahterToday.fl = forecastList[0].fl;
+                        this.weahterToday.notice = forecastList[0].notice;
+                        this.weahterToday.icon = this.getWeatherIcon(forecastList[0].type);
+
+                        this.weahterTomorrow.type = forecastList[1].type;
+                        this.weahterTomorrow.low = forecastList[1].low.replace('低温 ','');
+                        this.weahterTomorrow.high = forecastList[1].high.replace('高温 ','');
+                        this.weahterTomorrow.fx = forecastList[1].fx;
+                        this.weahterTomorrow.fl = forecastList[1].fl;
+                        this.weahterTomorrow.notice = forecastList[1].notice;
+                        this.weahterTomorrow.icon = this.getWeatherIcon(forecastList[1].type);  
+                    }else{
+                        console.log(res.data);
+                        this.$alert(res.msg,'提示',{
+                            confirmButtonText: '确定',
+                            customClass: 'message-logout'
+                        });
+                    }
             }).catch((response)=>{
                 console.log(response);
             })

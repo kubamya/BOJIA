@@ -159,10 +159,6 @@ export default {
                     var res = this.$handleRes(response);
 
                     if(res.code == 100){
-                        // this.$message({
-                        //     message: res.msg,
-                        //     type: 'success'
-                        // });
                         this.$alert(res.msg,'提示',{
                             confirmButtonText: '确定',
                             customClass: 'message-logout',

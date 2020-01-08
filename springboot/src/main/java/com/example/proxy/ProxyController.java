@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/proxy")
+@RequestMapping("/api/proxy/v1")
 public class ProxyController {
 
     @Autowired
