@@ -23,6 +23,41 @@ public class UserController {
     private UserService userService;
 
     /**
+     * 获取用户列表
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getUserList")
+    public Map<String, Object> getUserList(HttpServletRequest request) {
+        User user = new User();
+        try {
+            user = getUserFromRequest(request);
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS,userService.getUserList(user),"查询成功！");
+        }catch (Exception e){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL,e.getMessage(),"获取用户列表失败！");
+        }
+    }
+
+    /**
+     * 删除用户
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/deleteUser")
+    public Map<String, Object> deleteUser(HttpServletRequest request) {
+        User user = new User();
+        try{
+            user = getUserFromRequest(request);
+            userService.setUserDisable(user);
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS,null,"删除成功！");
+        }catch (Exception e){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL, e.getMessage(),"删除失败！");
+        }
+    }
+
+    /**
      * 新增或修改人员信息
      * @param request
      * @return
@@ -40,14 +75,16 @@ public class UserController {
             if("add".equals(optFlag)){
                 //新增
                 try {
-
+                    userService.addUser(user);
+                    return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS,null,"添加成功！");
                 }catch (Exception e){
                     return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"新增人员失败！");
                 }
             }else{
                 //修改
                 try {
-
+                    userService.updateUser(user);
+                    return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS,null,"更新成功！");
                 }catch (Exception e){
                     return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"修改人员信息失败！");
                 }
@@ -55,7 +92,6 @@ public class UserController {
         }catch (Exception e){
             return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL,e.getMessage(),"用户密码MD5加密失败！");
         }
-        return null;
     }
 
     private User getUserFromRequest(HttpServletRequest request) throws Exception{
@@ -70,19 +106,23 @@ public class UserController {
             user.setDXgsj(CommonUtil.getCurDateTime());
         }
         user.setCLoginId(request.getParameter("loginId"));
-        user.setCPassword(SecurityUtil.MD5Encode(request.getParameter("password")));
-        user.setCUserName(request.getParameter("userName"));
-        if("1".equals(request.getParameter("type"))){
-            user.setCComId(request.getParameter("userId"));
-            user.setCDeptId(request.getParameter("deptId"));
-            if(request.getParameter("xssx") != null){
-                user.setNXssx(Integer.parseInt(request.getParameter("xssx")));
-            }
+        if(request.getParameter("password") != null){
+            user.setCPassword(SecurityUtil.MD5Encode(request.getParameter("password")));
         }
+        user.setCUserName(request.getParameter("userName"));
+
         user.setCEmail(request.getParameter("email"));
         user.setCTel(request.getParameter("tel"));
         if(request.getParameter("type") != null){
             user.setNType(Integer.parseInt(request.getParameter("type")));
+
+            if("1".equals(request.getParameter("type"))){
+                user.setCComId(request.getParameter("userId"));
+                user.setCDeptId(request.getParameter("deptId"));
+                if(request.getParameter("xssx") != null){
+                    user.setNXssx(Integer.parseInt(request.getParameter("xssx")));
+                }
+            }
         }
 
         return user;

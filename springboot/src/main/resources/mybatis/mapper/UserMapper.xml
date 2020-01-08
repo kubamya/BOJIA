@@ -2,4 +2,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.user.mapper.UserMapper">
 
+    <insert id="addUser" parameterType="com.example.model.User">
+        INSERT INTO t_sims_user (
+            c_id,
+            c_loginid,
+            c_password,
+            c_username,
+            c_comid,
+            c_deptid,
+            c_email,
+            c_tel,
+            n_sfyx,
+            n_xssx,
+            d_cjsj,
+            c_cjrid,
+            n_type
+        )
+        VALUES
+            (
+                #{CId,jdbcType=VARCHAR},
+                #{CLoginId,jdbcType=VARCHAR},
+                #{CPassword,jdbcType=VARCHAR},
+                #{CUserName,jdbcType=VARCHAR},
+                #{CComId,jdbcType=VARCHAR},
+                #{CDeptId,jdbcType=VARCHAR},
+                #{CEmail,jdbcType=VARCHAR},
+                #{CTel,jdbcType=VARCHAR},
+                1,
+                #{NXssx,jdbcType=INTEGER},
+                #{DCjsj,jdbcType=TIMESTAMP},
+                #{CCjr,jdbcType=VARCHAR},
+                #{NType,jdbcType=INTEGER}
+            );
+    </insert>
+
+    <update id="updateUser" parameterType="com.example.model.User">
+        UPDATE t_sims_user
+        SET c_loginid = #{CLoginId,jdbcType=VARCHAR},
+        c_password = #{CPassword,jdbcType=VARCHAR},
+        c_username = #{CUserName,jdbcType=VARCHAR},
+        c_comid = #{CComId,jdbcType=VARCHAR},
+        c_deptid = #{CDeptId,jdbcType=VARCHAR},
+        c_email = #{CEmail,jdbcType=VARCHAR},
+        c_tel = #{CTel,jdbcType=VARCHAR},
+        n_xssx = #{NXssx,jdbcType=INTEGER},
+        d_xgsj = #{DXgsj,jdbcType=TIMESTAMP},
+        c_xgrid = #{CXgr,jdbcType=VARCHAR}
+        WHERE
+            c_id = #{CId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="setUserDisable" parameterType="com.example.model.User">
+        UPDATE t_sims_user
+        SET n_sfyx = 2,
+        d_xgsj = #{DXgsj,jdbcType=TIMESTAMP},
+        c_xgrid = #{CXgr,jdbcType=VARCHAR}
+        WHERE
+            c_id = #{CId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getUserList" parameterType="com.example.model.User" resultType="com.example.model.User">
+        SELECT
+            c_id AS CId,
+            c_username AS CUserName,
+            c_loginid AS CLoginId,
+            c_email AS CEmail,
+            c_tel AS CTel,
+            d_cjsj AS DCjsj,
+            d_xgsj AS DXgsj
+        FROM
+            t_sims_user
+        WHERE
+            n_type = #{NType,jdbcType=INTEGER}
+            AND n_sfyx = 1
+        ORDER BY n_xssx ASC
+    </select>
 </mapper>

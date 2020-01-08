@@ -22,6 +22,14 @@ export default {
     },
     methods:{
         goto(path){
+            if('/userManage' == path){
+                this.$notify({
+                    title: '提示',
+                    message: '此模块暂未开放！',
+                    duration: 1500
+                });
+                return;
+            }
             this.$emit('tz',path);
         }
     }
