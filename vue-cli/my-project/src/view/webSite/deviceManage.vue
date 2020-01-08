@@ -15,9 +15,9 @@
                         v-loading="loading"
                         highlight-current-row
                         style="width: 100%">
-                        <el-table-column prop="proName" label="产品名称"></el-table-column>
                         <el-table-column prop="devName" label="设备名称"></el-table-column>
                         <el-table-column prop="devId" label="设备ID"></el-table-column>
+                        <el-table-column prop="proName" label="产品名称"></el-table-column>                        
                         <el-table-column prop="sfzx" label="是否在线"></el-table-column>
                         <el-table-column prop="cjxj" label="创建时间"></el-table-column>
                         <el-table-column prop="xgxj" label="修改时间"></el-table-column>

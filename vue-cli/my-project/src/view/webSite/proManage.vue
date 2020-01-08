@@ -116,11 +116,11 @@ export default {
             cplxAdd:'',
             cplxOptions:[
                 {
-                    label:'产品1',
+                    label:'大棚设备',
                     value:'1'
                 },
                 {
-                    label:'产品2',
+                    label:'监测设备',
                     value:'2'
                 }
             ],
