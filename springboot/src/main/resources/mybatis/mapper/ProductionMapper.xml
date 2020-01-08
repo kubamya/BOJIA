@@ -86,5 +86,24 @@
         WHERE
             c_id = #{CId,jdbcType=VARCHAR}
     </update>
-    
+
+    <select id="getProById" parameterType="com.example.model.Production" resultType="com.example.model.Production">
+        SELECT
+            pro.c_id AS CId,
+            pro.c_userid AS CUserId,
+            pro.c_name AS CName
+        FROM
+            t_sims_poduction AS pro
+        WHERE
+            c_id = #{CId, jdbcType=VARCHAR}
+            and n_yx = 1
+    </select>
+
+    <update id="bindProByUserId" parameterType="com.example.model.Production">
+        UPDATE t_sims_poduction
+        SET
+            c_userid = #{CUserId, jdbcType=VARCHAR}
+        WHERE
+            c_id = #{CId, jdbcType=VARCHAR}
+    </update>
 </mapper>

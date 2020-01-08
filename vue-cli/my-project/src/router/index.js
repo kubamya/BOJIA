@@ -6,6 +6,7 @@ import main from '@/view/main/main.vue'
 import mainPc from '@/view/main/mainPc.vue'
 import login from '@/view/login/login.vue'
 import loginPc from '@/view/login/loginPc.vue'
+import regist from '@/view/login/regist.vue'
 import home from '@/view/home/home.vue'
 import manu from '@/view/manu/manu.vue'
 import auto from '@/view/auto/auto.vue'
@@ -28,6 +29,11 @@ export default new Router({
       path: '/loginPc',
       name: 'loginPc',
       component: loginPc
+    },
+    {
+      path: '/regist',
+      name: 'regist',
+      component: regist
     },
     {
       path: '/mainPc',

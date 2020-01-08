@@ -10,6 +10,13 @@ import java.util.UUID;
  */
 public class CommonUtil {
 
+    public static String getRandomUserName(){
+        StringBuffer sb = new StringBuffer("用户_");
+        String userName = sb.append(CommonUtil.getUUid()).toString();
+        userName = userName.substring(0,8);
+        return userName;
+    }
+
     /**
      * 生成32位uuid
      * @return
@@ -18,6 +25,11 @@ public class CommonUtil {
         return UUID.randomUUID().toString().replaceAll("-","");
     }
 
+    /**
+     * 日期转字符串
+     * @param date
+     * @return
+     */
     public static String dateToStr(Date date){
         if(date == null){
             return null;

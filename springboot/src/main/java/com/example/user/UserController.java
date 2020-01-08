@@ -1,7 +1,9 @@
 package com.example.user;
 
 import com.example.consts.IntegerConsts;
+import com.example.model.Production;
 import com.example.model.User;
+import com.example.production.service.ProductionService;
 import com.example.user.service.UserService;
 import com.example.util.CommonReturnUtil;
 import com.example.util.CommonUtil;
@@ -21,6 +23,67 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProductionService productionService;
+
+    /**
+     * app用户注册
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/regis")
+    public Map<String, Object> regis(HttpServletRequest request) {
+        User user = new User();
+        try{
+            user = getUserFromRequest(request);
+        }catch (Exception e){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL,e.getMessage(),"注册失败！");
+        }
+
+        String proId = request.getParameter("proId");
+        if(StringUtils.isBlank(proId)){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL,null,"产品序列号不能为空！");
+        }
+
+        //校验产品序列号合法性
+        Production production = new Production();
+        production.setCId(proId);
+        try{
+            production = productionService.getProById(production);
+            if(production == null){
+                return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL,null,"产品序列号不存在！");
+            }
+            if(production.getCUserId() != null && !production.getCUserId().equals(user.getCId())){
+                return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL,null,"该产品序列号已被注册！");
+            }
+            if(production.getCUserId() != null && production.getCUserId().equals(user.getCId())){
+                return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL,null,"您已注册该产品序列号！");
+            }
+//            if(production.getCUserId() == null){
+//                return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS,null,"产品序列号可以使用！");
+//            }
+        }catch (Exception e){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"查询产品信息出错");
+        }
+
+        //创建用户
+        try{
+            userService.addUser(user);
+        }catch (Exception e){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"创建用户失败！");
+        }
+
+        //用户和产品进行绑定
+        production.setCUserId(user.getCId());
+        try{
+            productionService.bindProByUserId(production);
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS,null,"注册成功！");
+        }catch (Exception e){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"产品信息绑定失败！");
+        }
+    }
 
     /**
      * 获取用户列表
@@ -99,9 +162,15 @@ public class UserController {
         if(request.getParameter("userId") == null){
             user.setCId(CommonUtil.getUUid());
             user.setCCjr(request.getParameter("cjr"));
+            if(request.getParameter("userName") == null){
+                user.setCUserName(CommonUtil.getRandomUserName());
+            }else {
+                user.setCUserName(request.getParameter("userName"));
+            }
             user.setDCjsj(CommonUtil.getCurDateTime());
         }else {
             user.setCId(request.getParameter("userId"));
+            user.setCUserName(request.getParameter("userName"));
             user.setCXgr(request.getParameter("xgr"));
             user.setDXgsj(CommonUtil.getCurDateTime());
         }
@@ -109,7 +178,6 @@ public class UserController {
         if(request.getParameter("password") != null){
             user.setCPassword(SecurityUtil.MD5Encode(request.getParameter("password")));
         }
-        user.setCUserName(request.getParameter("userName"));
 
         user.setCEmail(request.getParameter("email"));
         user.setCTel(request.getParameter("tel"));

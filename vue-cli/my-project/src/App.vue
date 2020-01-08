@@ -12,12 +12,38 @@ export default {
       name: 'App'
     }
   },
+  methods:{
+    checkLoginTime(){
+      var lastLoginTime = this.$handleLocalStorage('get','lastLoginTime');
+
+      if(lastLoginTime == undefined || lastLoginTime == null){
+          return false;
+      }
+
+      var curTime = this.$getCurtime();
+
+      if(curTime - lastLoginTime > 1800){
+          return false;
+      }else{
+          return true;
+      };
+    },
+  },
   mounted(){
-    if('app' == _global.appFlag){
-      this.$router.push({path: '/login'});
-    }else if('web' == _global.appFlag){
-      this.$router.push({path: '/loginPc'});
-    }    
+    if(this.checkLoginTime()){
+      if('app' == _global.appFlag){
+        this.$router.push({path: '/main'});
+      }else if('web' == _global.appFlag){
+        this.$router.push({path: '/mainPc'});
+      }
+    }else{
+      if('app' == _global.appFlag){
+        this.$router.push({path: '/login'});
+      }else if('web' == _global.appFlag){
+        this.$router.push({path: '/loginPc'});
+      }    
+    }
+    
   }
   
 }
@@ -36,4 +62,7 @@ html,body{
   width:100%;
   height:100%;
 }
+.message-logout {
+    width: 60%;
+  }
 </style>

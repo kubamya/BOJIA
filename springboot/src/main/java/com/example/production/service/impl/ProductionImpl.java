@@ -75,4 +75,14 @@ public class ProductionImpl implements ProductionService {
         }
         return resultList;
     }
+
+    @Override
+    public Production getProById(Production production) {
+        return productionMapper.getProById(production);
+    }
+
+    @Override
+    public void bindProByUserId(Production production) {
+        productionMapper.bindProByUserId(production);
+    }
 }

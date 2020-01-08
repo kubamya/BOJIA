@@ -9,7 +9,7 @@
                     <i class="el-icon-user"></i>
                 </div>
                 <div class="ipt-info">
-                    <input type="text" placeholder="请输入账号">
+                    <input type="text" placeholder="请输入账号" v-model="loginId">
                 </div>
             </div>
             <div class="login-form-row">
@@ -17,11 +17,12 @@
                     <i class="el-icon-lock"></i>
                 </div>
                 <div class="ipt-info">
-                    <input type="password" placeholder="请输入密码">
+                    <input type="password" placeholder="请输入密码" v-model="password">
                 </div>
             </div>
             <div class="login-form-row">
                 <el-button type="primary" style="width:100%;height:100%;border-radius:20px;" @click="login()">登录</el-button>
+                <a @click="goRegist()">注册账号</a>
             </div>
         </div>
         <div class="login-footer">
@@ -30,15 +31,41 @@
     </div>
 </template>
 <script>
+import _global from '@/global/global.vue'
 export default {
     data(){
         return {
-
+            loginId:'',
+            password:''
         }
     },
     methods:{
         login(){
-            this.$router.push({path: '/home'});
+            var params = new URLSearchParams();
+            params.append('loginId', this.loginId);
+            params.append('password', this.password);
+
+            this.$axios({method:'post',url: _global.requestUrl+'/api/login/v1/loginDefault', data: params})
+                .then(response =>{
+                    var res = this.$handleRes(response);
+
+                    if(res.code == 100){
+                        this.$handleLocalStorage('set', 'comId', res.data.comid);
+                        this.$handleLocalStorage('set', 'deptid', res.data.deptid);
+                        this.$handleLocalStorage('set', 'userid', res.data.id);
+                        this.$handleLocalStorage('set', 'username', res.data.username);
+                        this.$handleLocalStorage('set', 'lastLoginTime', this.$getCurtime());
+                        this.$router.push({path: '/main'});
+                    }else{
+                        this.$message({
+                            message: res.msg,
+                            type: 'warning'
+                        });
+                    }
+                })
+        },
+        goRegist(){
+            this.$router.push({path: '/regist'});
         }
     }
 }
@@ -124,5 +151,10 @@ export default {
     text-align: center;
     position: fixed;
     bottom: 0;
+}
+.login-form-row a{
+    font-size: 14px;
+    color: #409EFF;
+    line-height: 50px;
 }
 </style>

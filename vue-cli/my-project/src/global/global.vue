@@ -10,7 +10,7 @@ const envFlag = 'dev';
 
 // 应用类型
 // app：app端 web：web端
-const appFlag = 'web';
+const appFlag = 'app';
 export default {
   requestUrl,
   envFlag,

@@ -38,4 +38,16 @@ public interface ProductionService {
      * @return
      */
     public List<Map<String, Object>> getSellProList();
+
+    /**
+     * 根据产品id获取产品信息
+     * @return
+     */
+    public Production getProById(Production production);
+
+    /**
+     * 绑定产品和用户信息
+     * @param production
+     */
+    public void bindProByUserId(Production production);
 }

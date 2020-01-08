@@ -31,10 +31,26 @@
         </div>
 
         <div class="minue-logout-container">
-            <el-button style="width:60%;" type="danger">退出登录</el-button>
+            <el-button style="width:60%;" type="danger" @click="logout()">退出登录</el-button>
         </div>
     </div>
 </template>
+<script>
+export default {
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+        logout(){
+            this.$handleLocalStorage('remove', 'lastLoginTime');
+            this.$router.push({path:'/login'});
+        },
+    }
+}
+</script>
+
 <style scoped>
 .mine-container{
     width: 100%;
