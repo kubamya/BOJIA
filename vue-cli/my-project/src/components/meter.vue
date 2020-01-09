@@ -8,15 +8,17 @@
         <div class="echarts-area-container">
             <div class="echarts-area">
             <!-- <div id="echart-container" style="width:100%;height:100px;"></div> -->
-                <el-progress type="dashboard" :width="progressWidth" :percentage="25"></el-progress>
+                <el-progress type="dashboard" :width="progressWidth" :percentage="25"  :show-text="false"></el-progress>
                 <div class="progress-text">室内温度</div>
+                <div class="progress-value">27℃</div>
             </div>
             <div class="echarts-area">
                 <el-progress type="dashboard" :width="progressWidth" :percentage="30"></el-progress>
                 <div class="progress-text">室内湿度</div>
             </div><div class="echarts-area">
-                <el-progress type="dashboard" :width="progressWidth" :percentage="12"></el-progress>
+                <el-progress type="dashboard" :width="progressWidth" :percentage="12" :show-text="false"></el-progress>
                 <div class="progress-text">室内土壤温度</div>
+                <div class="progress-value">27℃</div>
             </div>
         </div>
 
@@ -27,10 +29,11 @@
             </div>
             <div class="echarts-area">
                 <el-progress type="dashboard" :width="progressWidth" :percentage="79"></el-progress>
-                <div class="progress-text">室外温度</div>
-            </div><div class="echarts-area">
-                <el-progress type="dashboard" :width="progressWidth" :percentage="44"></el-progress>
                 <div class="progress-text">室外湿度</div>
+            </div><div class="echarts-area">
+                <el-progress type="dashboard" :width="progressWidth" :percentage="44" :show-text="false"></el-progress>
+                <div class="progress-text">光照强度</div>
+                <div class="progress-value">278lx</div>
             </div>
         </div>
 
@@ -46,6 +49,11 @@ export default {
             //仪表盘大小
             progressWidth:105
             
+        }
+    },
+    watch:{
+        devId(){
+            console.log('获得设备id',this.devId);
         }
     },
     mounted(){
@@ -111,6 +119,14 @@ export default {
     bottom: 20px;
     font-size: 12px;
     color: #333;
+}
+.progress-value{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 40px;
+    font-size: 14px;
+    color: #666;
 }
 /* .echart-container{
     width: 100%;
