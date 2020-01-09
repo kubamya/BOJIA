@@ -10,13 +10,63 @@ import java.net.Socket;
 public class TCPUtil {
 
     /**
-     * 发送tcp请求并接受返回信息
+     * tcp发送字符串
      * @param cmdInfor
      * @param hostStr
      * @param portNum
      * @return
      */
-    public static String send(String cmdInfor, String hostStr, int portNum){
+    public static String sendStr(String cmdInfor, String hostStr, int portNum){
+        String strReturn = null;
+        try {
+            //要连接的服务端IP地址
+            String host = hostStr;
+            //要连接的服务端对应的监听端口
+            int port = portNum;
+
+            //1.建立客户端socket连接，指定服务器位置及端口
+            Socket clientSocket =new Socket(host,port);
+
+            //2.得到socket读写流
+            OutputStream os=clientSocket.getOutputStream();
+            PrintWriter pw=new PrintWriter(os);
+            //输入流
+            InputStream is=clientSocket.getInputStream();
+
+            //3.利用流按照一定的操作，对socket进行读写操作
+            os.write(cmdInfor.getBytes());
+            os.flush();
+            clientSocket.shutdownOutput();
+
+            //接收服务器的响应
+            int line = 0;
+            byte[] buf = new byte[is.available()];
+
+            //接收收到的数据
+            while((line=is.read(buf))!=-1){
+                //将字节数组转换成十六进制的字符串
+                strReturn= BinaryToHexString(buf);
+            }
+            //4.关闭资源
+            is.close();
+            pw.close();
+            os.close();
+            clientSocket.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println(strReturn);
+        return strReturn;
+    }
+
+    /**
+     * tcp发送十六进制命令
+     * @param cmdInfor
+     * @param hostStr
+     * @param portNum
+     * @return
+     */
+    public static String sendCmd(String cmdInfor, String hostStr, int portNum){
         String strReturn = null;
         try {
             //要连接的服务端IP地址
