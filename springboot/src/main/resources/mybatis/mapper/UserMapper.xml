@@ -77,4 +77,19 @@
             AND n_sfyx = 1
         ORDER BY n_xssx ASC
     </select>
+
+    <select id="getUserByLoginId" parameterType="com.example.model.User" resultType="com.example.model.User">
+        SELECT
+            c_id AS CId,
+            c_username AS CUserName,
+            c_loginid AS CLoginId,
+            c_email AS CEmail,
+            c_tel AS CTel,
+            d_cjsj AS DCjsj,
+            d_xgsj AS DXgsj
+        FROM
+            t_sims_user
+        WHERE
+            c_loginid = #{CLoginId,jdbcType=VARCHAR}
+    </select>
 </mapper>

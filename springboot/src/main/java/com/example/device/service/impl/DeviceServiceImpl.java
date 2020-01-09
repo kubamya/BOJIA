@@ -70,4 +70,27 @@ public class DeviceServiceImpl implements DeviceService {
         result.put("sbmy", device1.getCSbmy());
         return result;
     }
+
+    @Override
+    public void bindDevByUserId(Device device) {
+        deviceMapper.bindDevByUserId(device);
+    }
+
+    @Override
+    public List<Map<String, Object>> getDevByUserId(Device device) {
+        List<Device> deviceList = deviceMapper.getDevByUserId(device);
+
+        if(deviceList == null || deviceList.isEmpty()){
+            return null;
+        }
+
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Device device1 : deviceList){
+            Map<String, Object> devMap = new HashMap<>();
+            devMap.put("value",device1.getCId());
+            devMap.put("label",device1.getCName());
+            result.add(devMap);
+        }
+        return result;
+    }
 }

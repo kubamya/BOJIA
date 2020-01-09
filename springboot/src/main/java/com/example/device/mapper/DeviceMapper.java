@@ -40,4 +40,17 @@ public interface DeviceMapper {
      */
     public Device getDevById(Device device);
 
+    /**
+     * 设备绑定给用户
+     * @param device
+     */
+    public void bindDevByUserId(Device device);
+
+    /**
+     * 根据用户id获取设备信息
+     * @param device
+     * @return
+     */
+    public List<Device> getDevByUserId(Device device);
+
 }

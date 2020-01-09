@@ -52,7 +52,7 @@
             dev.d_xgsj DESC
     </select>
 
-    <select id="getDevById" resultType="com.example.model.Device">
+    <select id="getDevById" resultType="com.example.model.Device" parameterType="com.example.model.Device">
         SELECT
             c_proid AS CProId,
             c_name AS CName,
@@ -64,4 +64,23 @@
             c_id = #{CId, jdbcType=VARCHAR}
     </select>
 
+    <update id="bindDevByUserId" parameterType="com.example.model.Device">
+        UPDATE t_sims_device
+        SET
+            c_userid = #{CUserId, jdbcType=VARCHAR}
+        WHERE
+            c_proid = #{CProId, jdbcType=VARCHAR}
+    </update>
+
+    <select id="getDevByUserId" resultType="com.example.model.Device" parameterType="com.example.model.Device">
+        SELECT
+            c_proid AS CProId,
+            c_name AS CName,
+            c_id AS CId,
+            c_sbmy AS CSbmy
+        FROM
+            t_sims_device
+        WHERE
+            c_userid = #{CUserId, jdbcType=VARCHAR}
+    </select>
 </mapper>

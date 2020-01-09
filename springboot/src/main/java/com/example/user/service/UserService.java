@@ -32,4 +32,11 @@ public interface UserService {
      * @return
      */
     public List<Map<String, Object>> getUserList(User user);
+
+    /**
+     * 判断账号是否存在
+     * @param user
+     * @return
+     */
+    public User getUserByLoginId(User user);
 }

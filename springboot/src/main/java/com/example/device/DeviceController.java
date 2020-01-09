@@ -5,6 +5,7 @@ import com.example.device.service.DeviceService;
 import com.example.model.Device;
 import com.example.util.CommonReturnUtil;
 import com.example.util.CommonUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,34 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
+    /**
+     * 获取用户设备信息
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getDevByUserId")
+    public Map<String, Object> getDevByUserId(HttpServletRequest request) {
+        String userId = request.getParameter("userId");
+        if(StringUtils.isBlank(userId)){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL,null,"用户id不能为空！");
+        }
+
+        Device device = new Device();
+        device.setCUserId(userId);
+
+        try{
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS,deviceService.getDevByUserId(device),"查询成功！");
+        }catch (Exception e){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"获取设备信息失败！");
+        }
+    }
+
+    /**
+     * 根据设备id获取设备
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/getDevById")
     public Map<String, Object> getDevById(HttpServletRequest request) {

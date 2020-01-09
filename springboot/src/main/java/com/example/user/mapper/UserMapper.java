@@ -32,4 +32,11 @@ public interface UserMapper {
      * @return
      */
     public List<User> getUserList(User user);
+
+    /**
+     * 判断账号是否存在
+     * @param user
+     * @return
+     */
+    public User getUserByLoginId(User user);
 }

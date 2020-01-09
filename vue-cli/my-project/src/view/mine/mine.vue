@@ -51,8 +51,18 @@ export default {
 
         },
         logout(){
-            this.$handleLocalStorage('remove', 'lastLoginTime');
-            this.$router.push({path:'/login'});
+            this.$confirm('确认退出当前账号？', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                customClass: 'message-logout',
+                type: 'warning'
+            }).then(() => {
+                this.$handleLocalStorage('remove', 'lastLoginTime');
+                this.$router.push({path:'/login'});
+            }).catch(() => {
+                
+            });
+            
         },
     }
 }
@@ -148,5 +158,8 @@ export default {
     line-height: 50px;
     position: absolute;
     bottom: 60px;
+}
+*{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 </style>

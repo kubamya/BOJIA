@@ -56,4 +56,9 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
+
+    @Override
+    public User getUserByLoginId(User user) {
+        return userMapper.getUserByLoginId(user);
+    }
 }

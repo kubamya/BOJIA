@@ -6,14 +6,14 @@
                 <!-- <div class="home-head-more" ><i class="el-icon-s-operation"></i></div> -->
                 <div class="home-head-title">首页</div>
                 <div class="home-head-select">
-                    <!-- <el-select v-model="value" placeholder="请选择">
+                    <el-select v-model="value" placeholder="请选择">
                         <el-option
                         v-for="item in options"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value">
                         </el-option>
-                    </el-select> -->
+                    </el-select>
                 </div>
             </div>
             <div class="home-weather">
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="home-meter">
-            <meterCom></meterCom>
+            <meterCom :devId="value"></meterCom>
         </div>
         <div class="home-info">
             <homeInfoCom></homeInfoCom>
@@ -38,6 +38,7 @@
     </div>
 </template>
 <script>
+import _global from '@/global/global.vue'
 import weather from '@/components/weather.vue';
 import meter from '@/components/meter.vue';
 import homeInfo from '@/components/homeInfo.vue';
@@ -49,19 +50,38 @@ export default {
     },
     data(){
         return {
-            value:'选项1',
-            options: [
-                {value:'选项1', label:'一号大棚'},
-                {value:'选项2', label:'二号大棚'},
-                {value:'选项3', label:'三号大棚'}
-            ],
+            value:'',
+            options: [],
 
             //抽屉
              drawer: false,
              direction: 'ltr',
         }
     },
+    mounted(){
+        this.getDevByUserId();
+        
+    },
     methods:{
+        getDevByUserId(){
+            var params = new URLSearchParams();
+            params.append('userId', this.$handleLocalStorage('get','userid'));
+
+            this.$axios({method:'post',url: _global.requestUrl+'/api/device/v1/getDevByUserId', data: params})
+                .then(response => {
+                    var res = this.$handleRes(response);
+
+                    if(res.code == 100){
+                        this.options = res.data;
+                        this.value = this.options[0].value;
+                    }else{
+                        this.$message({
+                            message: res.msg,
+                            type: 'warning'
+                        });
+                    }
+                });
+        },
         openMore(){
             this.drawer = true;
         }
@@ -119,11 +139,10 @@ export default {
     line-height: 50px;
 }
 .el-input--small .el-input__inner {
-    height: 32px;
-    line-height: 32px;
-    background: none !important;
+    height: 25px;
+    line-height: 25px;
+    background-color: #409Eff;
     color: #fff;
-    border: none;
 }
 .home-weather{
     width: 100%;
@@ -149,14 +168,4 @@ export default {
 .el-drawer ltr{
     width: 80% !important;
 }
-/* .home-weather-day{
-    width: 50%;
-    height: 100%;
-    float: left; */
-    /* position: absolute;
-    top: 0;
-    left: 0;
-    box-sizing: border-box;
-    border-right: 1px solid rgba(255, 255, 255, 0.1); */
-/* } */
 </style>

@@ -40,45 +40,19 @@
 </template>
 <script>
 export default {
+    props:['devId'],
     data(){
         return {
             //仪表盘大小
             progressWidth:105
-            // option : {
-            //     series: [
-            //         {
-            //             name: '业务指标',
-            //             type: 'gauge',
-            //             detail: {
-            //                 formatter:'{value}%',
-            //                 color:'#333',
-            //                 fontSize:'12px'
-            //             },
-            //             data: [{value: 50, name: '完成率'}],
-            //             radius:'100%',
-            //             axisTick:{
-            //                 length:5
-            //             },
-            //             axisLabel:{
-            //                 show:false
-            //             },
-            //             pointer:{
-            //                 show:false,
-            //             }
-            //         }
-            //     ]
-            // }
+            
         }
     },
     mounted(){
-        // this.createEchart();
+        console.log('获得设备id',this.devId);
     },
      methods: {
-        // createEchart(){
-        //     var dom = document.getElementById("echart-container");
-        //     var myChart = this.$echarts.init(dom);
-        //     myChart.setOption(this.option, true);
-        // }
+        
     }
 }
 </script>

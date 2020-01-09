@@ -1,6 +1,8 @@
 package com.example.user;
 
 import com.example.consts.IntegerConsts;
+import com.example.device.service.DeviceService;
+import com.example.model.Device;
 import com.example.model.Production;
 import com.example.model.User;
 import com.example.production.service.ProductionService;
@@ -26,6 +28,9 @@ public class UserController {
 
     @Autowired
     private ProductionService productionService;
+
+    @Autowired
+    private DeviceService deviceService;
 
     /**
      * app用户注册
@@ -68,6 +73,16 @@ public class UserController {
             return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"查询产品信息出错");
         }
 
+        //校验账号是否存在
+        try{
+            User userCheck = userService.getUserByLoginId(user);
+            if(userCheck != null){
+                return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_FAIL,null,"账号已经存在！");
+            }
+        }catch (Exception e){
+            return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"校验账号合法性失败！");
+        }
+
         //创建用户
         try{
             userService.addUser(user);
@@ -75,10 +90,15 @@ public class UserController {
             return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"创建用户失败！");
         }
 
-        //用户和产品进行绑定
+        //用户和产品,社设备进行绑定
         production.setCUserId(user.getCId());
         try{
             productionService.bindProByUserId(production);
+
+            Device device = new Device();
+            device.setCProId(production.getCId());
+            device.setCUserId(user.getCId());
+            deviceService.bindDevByUserId(device);
             return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_SUCCESS,null,"注册成功！");
         }catch (Exception e){
             return CommonReturnUtil.CommonReturnMsg(IntegerConsts.RET_CODE_DATABASEERROR,e.getMessage(),"产品信息绑定失败！");
