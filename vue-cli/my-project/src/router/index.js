@@ -15,11 +15,17 @@ import proManage from '@/view/website/proManage.vue'
 import deviceManage from '@/view/website/deviceManage.vue'
 import customManage from '@/view/website/customManage.vue'
 import userManage from '@/view/website/userManage.vue'
+import test from '@/view/website/test.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/test',
+      name: 'test',
+      component: test
+    },
     {
       path: '/nav',
       name: 'nav',

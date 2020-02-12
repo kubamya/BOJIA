@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.control.TcpServer;
+import com.example.TCPServer.TCPServer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,9 +13,12 @@ public class DemoApplication extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
-//		new TcpServer().receive();
+
+        //启动tcp服务端监听tcp请求
+		new TCPServer().startServer();
+
     }
-    
+
     @Override
 	public void addCorsMappings(CorsRegistry registry) {
  
